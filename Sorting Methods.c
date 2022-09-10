@@ -25,6 +25,47 @@ void selectionSort(int arr[], int n)
             swap(&arr[min_idx], &arr[i]);
     }
 }
+ void countSort(char arr[])
+{
+    // The output character array that will have sorted arr
+    char output[strlen(arr)];
+ 
+    // Create a count array to store count of individual
+    // characters and initialize count array as 0
+    int count[RANGE + 1], i;
+    memset(count, 0, sizeof(count));
+ 
+    // Store count of each character
+    for (i = 0; arr[i]; ++i)
+        ++count[arr[i]];
+ 
+    // Change count[i] so that count[i] now contains actual
+    // position of this character in output array
+    for (i = 1; i <= RANGE; ++i)
+        count[i] += count[i - 1];
+ 
+    // Build the output character array
+    for (i = 0; arr[i]; ++i) {
+        output[count[arr[i]] - 1] = arr[i];
+        --count[arr[i]];
+    }
+ 
+    /*
+     For Stable algorithm
+     for (i = sizeof(arr)-1; i>=0; --i)
+    {
+        output[count[arr[i]]-1] = arr[i];
+        --count[arr[i]];
+    }
+    
+    For Logic : See implementation
+    */
+ 
+    // Copy the output array to arr, so that arr now
+    // contains sorted characters
+    for (i = 0; arr[i]; ++i)
+        arr[i] = output[i];
+}
  
  // Merges two subarrays of arr[].
 // First subarray is arr[l..m]
@@ -152,7 +193,7 @@ scanf("%d",&n);
 cout<<"Enter Array : ";
 int arr[n];
 for(int i=0;i<n;i++) scanf("%d",&arr[i]);
-cout<<"Enter Number Of Sorting Method To Be Used : 1. Bubble Sort 2. Merge Sort";
+cout<<"Enter Number Of Sorting Method To Be Used : 1. Bubble Sort 2. Merge Sort 3. Insertion Sort 4. Selection Sort 5. Count Sort";
 int ch; 
 scanf("%d",&ch);
 switch(ch)
@@ -176,6 +217,11 @@ case 4:
  selectionSort(arr, n); 
     printArray(arr, n); 
 break;
+case 5:
+ countSort(arr, n); 
+    printArray(arr, n); 
+break;
+
 	default:
             printf("Error! choice is not correct");
             break;
