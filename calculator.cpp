@@ -32,6 +32,9 @@ cout<<"Enter Two Numbers : ";
 	case '*':
 		cout<<A*B;
 		break;
+	case '/':
+		if(B!=0) cout<<A/B;
+`		break;
 
         // If the operator is other than +, -, * or /, 
         // error message will display
